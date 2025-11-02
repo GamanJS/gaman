@@ -22,6 +22,7 @@
     "@gaman/jwt": "file:.yalc/@gaman/jwt",
     "@gaman/nunjucks": "file:.yalc/@gaman/nunjucks",
     "@gaman/rate-limit": "file:.yalc/@gaman/rate-limit",
+    "@gaman/react": "file:.yalc/@gaman/react",
     "@gaman/session": "file:.yalc/@gaman/session",
     "@gaman/static": "file:.yalc/@gaman/static",
     "@gaman/websocket": "file:.yalc/@gaman/websocket",

@@ -39,6 +39,9 @@ yalc push
 cd ../jwt
 yalc push
 
+cd ../react
+yalc push
+
 # Return to the root directory
 cd ../..
 

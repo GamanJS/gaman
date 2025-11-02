@@ -24,7 +24,8 @@
 		"plugins/websocket",
 		"plugins/session",
 		"plugins/edge",
-		"plugins/jwt"
+		"plugins/jwt",
+		"plugins/react"
 	],
 	"author": "angga7togk",
 	"license": "MIT",

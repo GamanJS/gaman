@@ -1,3 +1,4 @@
+import { Integration } from '@gaman/common';
 import type { Plugin } from 'esbuild';
 
 export interface GamanBuildConfig {
@@ -45,6 +46,7 @@ export interface GamanBuildConfig {
 export interface GamanConfig {
 	verbose?: boolean;
 	build?: GamanBuildConfig;
+	integrations?: Array<Integration>
 }
 
 export function defineConfig(config: GamanConfig): GamanConfig {
