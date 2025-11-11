@@ -1,5 +1,5 @@
 {
-	"name": "@gaman/react",
+	"name": "@gaman/view",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "index.js",
@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"repository": {
 		"url": "git+https://github.com/GamanJS/gaman.git",
-		"directory": "plugins/react"
+		"directory": "packages/react"
 	},
 	"bugs": {
 		"url": "https://github.com/GamanJS/gaman/issues"

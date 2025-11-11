@@ -1,5 +1,5 @@
 {
-	"name": "@gaman/react",
+	"name": "@gaman/tailwindcss",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "index.js",
@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"repository": {
 		"url": "git+https://github.com/GamanJS/gaman.git",
-		"directory": "plugins/react"
+		"directory": "plugins/tailwindcss"
 	},
 	"bugs": {
 		"url": "https://github.com/GamanJS/gaman/issues"
@@ -17,5 +17,10 @@
 		"access": "public",
 		"registry": "https://registry.npmjs.org"
 	},
-	"gitHead": "8d1bf3bbac4b72847e9157e2c95d75b5e90c89cf"
+	"gitHead": "8d1bf3bbac4b72847e9157e2c95d75b5e90c89cf",
+	"dependencies": {
+		"postcss": ">=8.5.6",
+		"autoprefixer": ">=10.4.21",
+		"@tailwindcss/postcss": ">=4.1.16"
+	}
 }

@@ -42,7 +42,7 @@ export const hookIntegration: IntegrationEvents['gaman:build:single:before'] =
 			define: {
 				'process.env.NODE_ENV': `"${mode}"`,
 			},
-			plugins: [pluginReactMount()],
+			plugins: [pluginReactMount(), ...(config?.build?.esbuildPlugins ?? [])],
 			banner: {
 				js: `
 /*!

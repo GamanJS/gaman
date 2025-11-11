@@ -1,5 +1,5 @@
 import { Priority } from '@gaman/common';
-import { GamanConfig } from '@gaman/core';
+import { GamanApp, GamanConfig } from '@gaman/core';
 
 export type FileBuildResult = {
 	filePath: string;
@@ -8,9 +8,11 @@ export type FileBuildResult = {
 };
 
 export type FileBuildHook = (result: FileBuildResult) => void | Promise<void>;
+export type ServerBootstrap = (app: GamanApp) => void | Promise<void>;
 
 export interface IntegrationEvents {
 	'gaman:build:single:before'?: FileBuildHook;
+	'gaman:server:bootstrap'?: ServerBootstrap;
 }
 
 export type Integration = {

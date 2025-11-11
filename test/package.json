@@ -25,6 +25,7 @@
     "@gaman/react": "file:.yalc/@gaman/react",
     "@gaman/session": "file:.yalc/@gaman/session",
     "@gaman/static": "file:.yalc/@gaman/static",
+    "@gaman/tailwindcss": "file:.yalc/@gaman/tailwindcss",
     "@gaman/websocket": "file:.yalc/@gaman/websocket",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"

@@ -6,11 +6,11 @@
       "file": true
     },
     "@gaman/core": {
-      "signature": "6412c90a7d7999baec720b6b11eb6982",
+      "signature": "9d9dec591d607859e03bf91edfbaa6fd",
       "file": true
     },
     "@gaman/common": {
-      "signature": "c87a23b413ec43061af0f7ad11671221",
+      "signature": "a76ec121fac27d83dd667f26c0cc97a9",
       "file": true
     },
     "@gaman/cli": {
@@ -18,7 +18,11 @@
       "file": true
     },
     "@gaman/react": {
-      "signature": "5447a7b0b3251f5b51bfaecb0a9cb953",
+      "signature": "98c61ef6df49c854023b5510620b313d",
+      "file": true
+    },
+    "@gaman/tailwindcss": {
+      "signature": "5caef17459d6785b823419923991e94b",
       "file": true
     }
   }

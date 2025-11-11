@@ -38,7 +38,8 @@
 		"plugins/websocket",
 		"plugins/session",
 		"plugins/jwt",
-		"plugins/react"
+		"plugins/react",
+		"plugins/tailwindcss"
 	],
 	"exclude": ["node_modules", "dist", "**/*.test.*"],
 	"files": [],

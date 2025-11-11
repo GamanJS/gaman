@@ -3,11 +3,8 @@ import { defineBootstrap } from '@gaman/core';
 import AppRoutes from './routes/AppRoutes';
 import { staticServe } from '@gaman/static';
 import AppMiddleware from './middlewares/AppMiddleware';
-import { cors } from '@gaman/cors';
 import { WebsocketGateway } from '@gaman/websocket';
 import { session } from '@gaman/session';
-import { edge } from '@gaman/edge';
-import EdgeHandler from './EdgeHandler';
 import { jwt } from '@gaman/jwt';
 import JwtRoutes from './routes/JwtRoutes';
 import { jwtAuthMiddleware } from './middlewares/JwtAuthMiddleware';
@@ -15,13 +12,6 @@ import { jwtAuthMiddleware } from './middlewares/JwtAuthMiddleware';
 defineBootstrap(async (app) => {
 	app.mount(
 		AppRoutes,
-		edge({
-			handler: EdgeHandler,
-		}),
-		cors({
-			origin: ['http://127.0.0.1:5500'],
-			credentials: true,
-		}),
 		staticServe(),
 		AppMiddleware(),
 		jwtAuthMiddleware(),

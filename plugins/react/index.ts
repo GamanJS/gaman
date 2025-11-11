@@ -1,8 +1,8 @@
-import { defineIntegration } from '@gaman/core';
+import { Integration } from '@gaman/common';
 import { hookIntegration } from './hook-integration.js';
 
-export const react = defineIntegration({
-	name: 'gaman-react-builder',
+export const react = (): Integration => ({
+	name: 'gaman:react',
 	hooks: {
 		'gaman:build:single:before': hookIntegration,
 	},
