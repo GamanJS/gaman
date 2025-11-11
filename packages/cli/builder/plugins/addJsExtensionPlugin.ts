@@ -14,11 +14,16 @@ export const addJsExtensionPlugin: Plugin = {
 				if (p1.endsWith('.js')) return match;
 
 				let newPath = p1;
-				if (fs.existsSync(absImportPath + '.ts')) {
+				if (
+					fs.existsSync(absImportPath + '.ts') ||
+					fs.existsSync(absImportPath + '.js')
+				) {
 					newPath = p1 + '.js';
 				} else {
-					const indexTs = path.join(absImportPath, 'index.ts');
-					if (fs.existsSync(indexTs)) {
+					if (
+						fs.existsSync(path.join(absImportPath, 'index.ts')) ||
+						fs.existsSync(path.join(absImportPath, 'index.js'))
+					) {
 						newPath = p1.endsWith('/') ? p1 + 'index.js' : p1 + '/index.js';
 					}
 				}
