@@ -1,5 +1,11 @@
 # @gaman/cli
 
+## 1.2.10
+
+### Patch Changes
+
+- d1fdaed: add react
+
 ## 1.2.9
 
 ### Patch Changes

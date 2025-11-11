@@ -1,5 +1,7 @@
 # @gaman/common
 
+## 1.2.10
+
 ## 1.2.9
 
 ### Patch Changes
