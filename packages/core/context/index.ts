@@ -68,14 +68,6 @@ export async function createContext(
 				} catch {
 					return {} as T;
 				}
-			} else if (
-				contentType.includes('application/x-www-form-urlencoded') &&
-				method !== 'HEAD'
-			) {
-				if (body == null) {
-					body = await getBody(req);
-				}
-				return querystring.parse(body.toString()) as T;
 			} else {
 				return {} as T;
 			}
