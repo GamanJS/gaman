@@ -5,7 +5,6 @@ import chokidar from 'chokidar';
 import path from 'path';
 import { getGamanConfig } from '@gaman/common/index.js';
 import { buildAll, buildFile } from '../builder/index.js';
-import { buildReactViews } from '../builder/react-builder.js';
 
 export async function run_dev(): Promise<void> {
 	const config = await getGamanConfig();
@@ -40,49 +39,39 @@ export async function run_dev(): Promise<void> {
 			ignored: config?.build?.excludes,
 		})
 		.on('add', async (file) => {
-			if (/\.(ts|js|jsx|tsx)$/.test(file)) {
-				if (verbose) Logger.debug(`New file: ${file}`);
-				if (file.endsWith('.jsx') || file.endsWith('.tsx')) {
-					try {
-						await buildReactViews(config, 'development');
-					} catch (err) {
-						Logger.error(`Client View build failed: ${file}`);
-						console.error(err);
-					}
-				} else {
-					try {
-						await buildFile(file, config, 'development');
-					} catch (err) {
-						Logger.error(`Build failed: ${file}`);
-						console.error(err);
-					}
+			if (verbose) Logger.debug(`New file: ${file}`);
+			await buildFile(file, config, 'development');
+			for (const integration of config.integrations ?? []) {
+				try {
+					integration.hooks?.['gaman:build:single:before']?.({
+						config,
+						filePath: file,
+						mode: 'development',
+					});
+				} catch (err) {
+					Logger.error(`Build failed: ${file}`);
+					if (verbose) console.error(err);
 				}
 			}
 		})
 		.on('change', (file) => {
-			if (/\.(ts|js|jsx|tsx)$/.test(file)) {
-				if (changeTimeout) clearTimeout(changeTimeout);
-				changeTimeout = setTimeout(async () => {
-					if (verbose) Logger.debug(`Changed: ${file}`);
-					if (file.endsWith('.jsx') || file.endsWith('.tsx')) {
-						try {
-							await buildReactViews(config, 'development');
-							restart();
-						} catch (err) {
-							Logger.error(`Client View build failed: ${file}`);
-							console.error(err);
-						}
-					} else {
-						try {
-							await buildFile(file, config, 'development');
-							restart();
-						} catch (err) {
-							Logger.error(`Build failed: ${file}`);
-							console.error(err);
-						}
+			if (changeTimeout) clearTimeout(changeTimeout);
+			changeTimeout = setTimeout(async () => {
+				if (verbose) Logger.debug(`Changed: ${file}`);
+				await buildFile(file, config, 'development');
+				for (const integration of config.integrations ?? []) {
+					try {
+						integration.hooks?.['gaman:build:single:before']?.({
+							config,
+							filePath: file,
+							mode: 'development',
+						});
+					} catch (err) {
+						Logger.error(`Build failed: ${file}`);
+						if (verbose) console.error(err);
 					}
-				}, 100); // tunggu 100ms
-			}
+				}
+			}, 100);
 		})
 		.on('unlink', async (file) => {
 			const relPath = path.relative(rootdir, file);

@@ -6,3 +6,4 @@ export * from '@gaman/common/types/store.types.js';
 export * from '@gaman/common/types/types.js';
 export * from '@gaman/common/types/controller.types.js';
 export * from '@gaman/common/types/services.types.js';
+export * from '@gaman/common/types/integration.types.js';

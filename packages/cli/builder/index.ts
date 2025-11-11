@@ -8,7 +8,6 @@ import { addJsExtensionPlugin } from './plugins/addJsExtensionPlugin.js';
 import { createDevelopmentFile, createProductionFile } from './helper.js';
 import { promisify } from 'util';
 import { compressDistFiles } from './gzip-build.js';
-import { buildReactViews } from './react-builder.js';
 
 const mkdir = promisify(fs.mkdir);
 const copyFile = promisify(fs.copyFile);
@@ -92,19 +91,18 @@ export const buildAll = async (
 		},
 	);
 	if (verbose) Logger.debug(`Found ${entryPoints.length} entry files`);
-	try {
-		await buildReactViews(config, mode);
-	} catch (err) {
-		Logger.error(`Client View build failed`);
-		if (verbose) console.error(err);
-	}
+	
 	// ? Build semua file secara paralel
 	await Promise.all(
 		entryPoints.map(async (file) => {
-			const ext = path.extname(file);
-			if (!['.jsx', '.tsx'].includes(ext)) {
+			await buildFile(file, config, mode);
+			for (const integration of config.integrations ?? []) {
 				try {
-					await buildFile(file, config, mode);
+					integration.hooks?.['gaman:build:single:before']?.({
+						config,
+						filePath: file,
+						mode,
+					});
 				} catch (err) {
 					Logger.error(`Build failed: ${file}`);
 					if (verbose) console.error(err);
@@ -123,31 +121,38 @@ export const buildFile = async (
 	config: GamanConfig,
 	mode: 'development' | 'production',
 ) => {
-	const outdir = `${config.build?.outdir}/server`;
-	const rootdir = config.build?.rootdir || 'src';
-	const relPath = path.relative(rootdir, file).replaceAll('\\', '/');
-	const outFile = path.join(outdir, relPath).replace(/\.(ts|js)$/, '.js');
+	const ext = path.extname(file);
+	if (!['.ts', '.js'].includes(ext)) {
+		return;
+	}
+	try {
+		const outdir = `${config.build?.outdir}/server`;
+		const rootdir = config.build?.rootdir || 'src';
+		const relPath = path.relative(rootdir, file).replaceAll('\\', '/');
+		const outFile = path.join(outdir, relPath).replace(/\.(ts|js)$/, '.js');
 
-	await esbuild.build({
-		entryPoints: [file],
-		outfile: outFile,
-		bundle: false,
-		format: 'esm',
-		platform: 'node',
-		target: 'node18',
-		allowOverwrite: true,
-		minify: mode === 'production',
-		sourcemap: true,
-		legalComments: 'none',
-		packages: 'external',
-		alias: config?.build?.alias,
-		define: {
-			'process.env.NODE_ENV': `"${mode}"`,
-		},
-		plugins: [addJsExtensionPlugin, ...(config?.build?.esbuildPlugins || [])],
-	});
+		await esbuild.build({
+			entryPoints: [file],
+			outfile: outFile,
+			bundle: false,
+			format: 'esm',
+			platform: 'node',
+			target: 'node18',
+			allowOverwrite: true,
+			minify: mode === 'production',
+			sourcemap: true,
+			legalComments: 'none',
+			packages: 'external',
+			alias: config?.build?.alias,
+			define: {
+				'process.env.NODE_ENV': `"${mode}"`,
+			},
+			plugins: [addJsExtensionPlugin, ...(config?.build?.esbuildPlugins || [])],
+		});
 
-	if (config.verbose) Logger.debug(`Built: ${relPath}`);
+		if (config.verbose) Logger.debug(`Built: ${relPath}`);
+	} catch (error) {
+		Logger.error(`Build failed: ${file}`);
+		if (config?.verbose) console.error(error);
+	}
 };
-
-

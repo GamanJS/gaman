@@ -8,7 +8,6 @@ export * from '@gaman/core/router/handler.js';
 export * from '@gaman/core/router/index.js';
 export * from '@gaman/core/controller/index.js';
 export * from '@gaman/core/interceptor/index.js';
-export * from '@gaman/core/integration/index.js';
 export * from '@gaman/core/middleware/index.js';
 export * from '@gaman/core/exception/index.js';
 export * from '@gaman/core/store/index.js';

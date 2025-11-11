@@ -4,6 +4,8 @@ import AppRoutes from './routes/AppRoutes';
 import { staticServe } from '@gaman/static';
 import AppMiddleware from './middlewares/AppMiddleware';
 import { WebsocketGateway } from '@gaman/websocket';
+import { session } from '@gaman/session';
+import { jwt } from '@gaman/jwt';
 import JwtRoutes from './routes/JwtRoutes';
 import { jwtAuthMiddleware } from './middlewares/JwtAuthMiddleware';
 

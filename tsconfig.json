@@ -3,7 +3,7 @@
 		"composite": true,
 		"module": "nodenext",
 		"target": "ES2021",
-    "lib": ["ES2021"],
+		"lib": ["ES2021"],
 		"moduleResolution": "nodenext",
 		"declaration": true,
 		"noImplicitAny": false,
@@ -37,7 +37,9 @@
 		"plugins/static",
 		"plugins/websocket",
 		"plugins/session",
-		"plugins/jwt"
+		"plugins/jwt",
+		"plugins/react",
+		"plugins/tailwindcss"
 	],
 	"exclude": ["node_modules", "dist", "**/*.test.*"],
 	"files": [],

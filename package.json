@@ -24,7 +24,9 @@
 		"plugins/websocket",
 		"plugins/session",
 		"plugins/edge",
-		"plugins/jwt"
+		"plugins/jwt",
+		"plugins/react",
+		"plugins/tailwindcss"
 	],
 	"author": "angga7togk",
 	"license": "MIT",
@@ -36,8 +38,10 @@
 	},
 	"homepage": "https://gaman.7togk.id",
 	"dependencies": {
+		"@tailwindcss/postcss": "^4.1.16",
 		"@types/node": "^24.3.1",
 		"@types/ws": "^8.18.1",
+		"autoprefixer": "^10.4.21",
 		"cac": "^6.7.14",
 		"chokidar": "^3.6.0",
 		"cookie": "^1.0.2",
@@ -49,10 +53,12 @@
 		"jsonwebtoken": "^9.0.2",
 		"npm": "^11.5.2",
 		"path-to-regexp": "^8.3.0",
+		"postcss": "^8.5.6",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"socket.io": "^4.8.1",
 		"source-map-support": "^0.5.21",
+		"tailwindcss": "^4.1.16",
 		"ws": "^8.18.2"
 	},
 	"devDependencies": {

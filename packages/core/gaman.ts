@@ -41,6 +41,11 @@ export async function defineBootstrap(cb: (app: GamanApp) => any) {
 	const app = new GamanApp();
 	const config = await getGamanConfig();
 
+	// run integration bootstraps
+	for (const integration of config.integrations ?? []) {
+		await integration.hooks?.['gaman:server:bootstrap']?.(app);
+	}
+
 	// *** ROUTES ***
 	await importDirIfExists(config, ROUTE_DIRS);
 
