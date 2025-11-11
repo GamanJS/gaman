@@ -1,5 +1,11 @@
 # create-gaman
 
+## 1.2.12
+
+### Patch Changes
+
+- 6265d94: s
+
 ## 1.2.11
 
 ### Patch Changes

@@ -1,5 +1,0 @@
----
-'create-gaman': patch
----
-
-s
