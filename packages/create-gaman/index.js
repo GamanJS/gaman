@@ -35,114 +35,69 @@ async function main() {
   ░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝
 `);
 
-	// 🔹 Step 1: pilih mode
-	const { mode } = await inquirer.prompt([
+	const templates = {
+		'Backend - Blank': 'blank',
+		'Fullstack - React': 'react',
+		'Fullstack - React x Tailwind': 'react-tailwindcss',
+	};
+
+	
+
+	const { template } = await inquirer.prompt([
 		{
 			type: 'list',
-			name: 'mode',
+			name: 'template',
 			message: 'What do you want to do?',
-			choices: ['Start Project', 'Explore Samples'],
-			default: 'Start Project',
+			choices: Object.keys(templates),
+			default: Object.keys(templates)[0],
 		},
 	]);
 
-	let projectType = 'template';
-	let subfolder = 'typescript'; // default
-	let projectName = './gaman-app';
-	let packageManager = 'npm';
-	let installPack = true;
-	let gitInit = true;
+	const answers = await inquirer.prompt([
+		{
+			type: 'input',
+			name: 'projectName',
+			message: 'What is your project name?',
+			default: './gaman-app',
+		},
+		{
+			type: 'list',
+			name: 'language',
+			message: 'What language do you want to use?',
+			choices: ['typescript', 'javascript'],
+			default: 'typescript',
+		},
+		{
+			type: 'list',
+			name: 'packageManager',
+			message: 'Choose a package manager',
+			choices: ['npm', 'pnpm', 'bun', 'yarn'],
+			default: 'npm',
+		},
+		{
+			type: 'confirm',
+			name: 'installPack',
+			message: 'Install dependencies?',
+			default: true,
+		},
+		{
+			type: 'confirm',
+			name: 'gitInit',
+			message: 'Initialize a new git repository?',
+			default: true,
+		},
+	]);
 
-	if (mode === 'Explore Samples') {
-		const sampleMap = await getSampleMap();
-		const { sampleKey } = await inquirer.prompt([
-			{
-				type: 'list',
-				name: 'sampleKey',
-				message: 'Choose a sample to use:',
-				choices: Object.keys(sampleMap),
-			},
-		]);
+	const templateDir = `${templates[template]}-${
+		answers.language == 'typescript' ? 'ts' : 'js'
+	}`;
+	const degitPath = `github:GamanJS/templates/${templateDir}`;
+	console.log(templateDir)
+	const projectName = answers.projectName;
+	const packageManager = answers.packageManager;
+	const installPack = answers.installPack;
+	const gitInit = answers.gitInit;
 
-		subfolder = sampleMap[sampleKey];
-		projectType = 'sample';
-
-		const ans = await inquirer.prompt([
-			{
-				type: 'input',
-				name: 'projectName',
-				message: 'What is your project name?',
-				default: `./${sampleKey.replace(/\s+/g, '-').toLowerCase()}`,
-			},
-			{
-				type: 'list',
-				name: 'packageManager',
-				message: 'Choose a package manager',
-				choices: ['npm', 'pnpm', 'bun', 'yarn'],
-				default: 'npm',
-			},
-			{
-				type: 'confirm',
-				name: 'installPack',
-				message: 'Install dependencies?',
-				default: true,
-			},
-			{
-				type: 'confirm',
-				name: 'gitInit',
-				message: 'Initialize a new git repository?',
-				default: true,
-			},
-		]);
-
-		projectName = ans.projectName;
-		packageManager = ans.packageManager;
-		installPack = ans.installPack;
-		gitInit = ans.gitInit;
-	} else {
-		// Start Project
-		const answers = await inquirer.prompt([
-			{
-				type: 'input',
-				name: 'projectName',
-				message: 'What is your project name?',
-				default: './gaman-app',
-			},
-			{
-				type: 'list',
-				name: 'language',
-				message: 'What language do you want to use?',
-				choices: ['typescript', 'javascript'],
-				default: 'typescript',
-			},
-			{
-				type: 'list',
-				name: 'packageManager',
-				message: 'Choose a package manager',
-				choices: ['npm', 'pnpm', 'bun', 'yarn'],
-				default: 'npm',
-			},
-			{
-				type: 'confirm',
-				name: 'installPack',
-				message: 'Install dependencies?',
-				default: true,
-			},
-			{
-				type: 'confirm',
-				name: 'gitInit',
-				message: 'Initialize a new git repository?',
-				default: true,
-			},
-		]);
-
-		projectName = answers.projectName;
-		subfolder = answers.language;
-		packageManager = answers.packageManager;
-		installPack = answers.installPack;
-		gitInit = answers.gitInit;
-	}
-	
 	const targetDir = path.resolve(process.cwd(), projectName);
 
 	if (fs.existsSync(targetDir)) {
@@ -150,16 +105,11 @@ async function main() {
 		process.exit(1);
 	}
 
-	// 🔹 Bedain path template / sample
-	const degitPath =
-		projectType === 'template'
-			? `7TogkID/gaman/template/${subfolder}`
-			: `7TogkID/gaman/sample/${subfolder}`;
 
-	console.log(`\n📁 Fetching ${projectType} "${subfolder}" from GitHub...`);
+	console.log(`\n📁 Fetching template "${templateDir}" from GitHub...`);
 	try {
 		await degit(degitPath).clone(targetDir);
-		console.log(`✅ ${projectType} copied to ${projectName}`);
+		console.log(`✅ Template ${templateDir} copied to ${projectName}`);
 	} catch (err) {
 		console.error('❌ Error cloning the project:', err);
 		process.exit(1);

@@ -7,9 +7,9 @@ import { getGamanConfig } from '@gaman/common';
 import { GamanConfig } from './config/index.js';
 
 const ROUTE_DIRS = ['routes', 'router'];
-const MIDDLEWARE_DIRS = ['middlewares', 'middleware'];
-const INTERCEPTOR_DIRS = ['interceptors', 'interceptor'];
-const EXCEPTION_DIRS = ['exceptions', 'exception'];
+const MIDDLEWARE_DIRS = ['middlewares', 'middleware', 'module/middlewares', 'module/middleware'];
+const INTERCEPTOR_DIRS = ['interceptors', 'interceptor', 'module/interceptors', 'module/interceptor'];
+const EXCEPTION_DIRS = ['exceptions', 'exception', 'module/exceptions', 'module/exception'];
 
 function getProjectDir(config: GamanConfig, dirName: string) {
 	const baseDir = path.join(config.build?.outdir || 'dist', 'server');
