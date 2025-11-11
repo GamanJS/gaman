@@ -1,5 +1,11 @@
 # @gaman/core
 
+## 1.2.11
+
+### Patch Changes
+
+- cfc0372: change cli add template react
+
 ## 1.2.10
 
 ## 1.2.9
