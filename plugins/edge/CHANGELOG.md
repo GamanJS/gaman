@@ -1,5 +1,11 @@
 # @gaman/ejs
 
+## 1.0.1
+
+### Patch Changes
+
+- 697c150: add @gaman/site react support
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,5 +1,11 @@
 # @gaman/cli
 
+## 1.2.9
+
+### Patch Changes
+
+- 697c150: add @gaman/site react support
+
 ## 1.2.8
 
 ## 1.2.7
