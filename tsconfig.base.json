@@ -40,8 +40,6 @@
 		"plugins/session",
 		"plugins/edge",
 		"plugins/jwt",
-		"plugins/react",
-		"plugins/tailwindcss"
 	],
 	"exclude": ["node_modules", "dist", "**/*.test.*"]
 }

@@ -55,7 +55,7 @@ export interface GamanEdgeOptions
  * @ID Membuat middleware view engine Edge untuk GamanJS.
  */
 export function edge(ops: GamanEdgeOptions = {}) {
-	const { viewPath = 'src/views', handler } = ops;
+	const { viewPath = 'src/ui/views', handler } = ops;
 	let edge: Edge;
 
 	const middleware = composeMiddleware(async (_, next) => {

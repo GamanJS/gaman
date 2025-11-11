@@ -1,11 +1,16 @@
 import { defineConfig } from '@gaman/core';
-import { react } from '@gaman/react';
-import { tailwindcss } from '@gaman/tailwindcss';
+import { site, ReactEngine } from '@gaman/site';
+import autoprefixer from 'autoprefixer';
+import tailwindcss from '@tailwindcss/postcss';
 
 export default defineConfig({
 	verbose: true,
 	build: {
-		esbuildPlugins: [tailwindcss()],
+		esbuildPlugins: [],
 	},
-	integrations: [react()],
+	integrations: [
+		site(ReactEngine, {
+			postcss: [autoprefixer(), tailwindcss()],
+		}),
+	],
 });

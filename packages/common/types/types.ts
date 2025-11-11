@@ -7,7 +7,7 @@ import { File } from '@gaman/core/context/formdata/file/index.js';
 /*                                   Handler                                  */
 /* -------------------------------------------------------------------------- */
 
-export type RequestHandler = (c: Context) => Response | Promise<Response>;
+export type RequestHandler = (c: Context) => any | Promise<any>;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Router                                   */

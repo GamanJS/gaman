@@ -5,7 +5,6 @@ import {
 } from '@gaman/core';
 import AppController from '../controllers/AppController';
 import { InterceptorException } from '@gaman/common';
-import MidController from '../controllers/MidController';
 import AppWebsocket from '../AppWebsocket';
 import TesWSMiddleware from '../middlewares/TesWSMiddleware';
 
@@ -39,7 +38,6 @@ export const ErrorHandle = composeExceptionHandler((err) => {
 });
 
 export default composeRoutes((r) => {
-	r.ws('/', AppWebsocket).middleware(TesWSMiddleware());
 
 	r.get('/', [AppController, 'Home']);
 
@@ -54,27 +52,5 @@ export default composeRoutes((r) => {
 		return Res.json({ message: 'OK!' });
 	});
 
-	r.get('/anu', [MidController, 'Index']);
-	r.get('/anu2', [MidController, 'Index']);
-	r.get('/anu3', [MidController, 'Index']);
-	r.get('/anu4', [MidController, 'Index']);
-	r.get('/anu5', [MidController, 'Index']);
-	r.get('/anu6', [MidController, 'Index']);
-	r.get('/anu7', [MidController, 'Index']);
-	r.get('/anu8', [MidController, 'Index']);
-	r.get('/anu9', [MidController, 'Index']);
-	r.get('/anu10', [MidController, 'Index']);
-	r.get('/anu10', [MidController, 'Index']);
-	r.group('/user', (r) => {
-		r.get('/', (ctx) => {
-			return Res.text('ini get');
-		});
-		r.post('/', (ctx) => {
-			return Res.text('ini post');
-		});
-		r.get('/setting', [MidController, 'Index']);
-		r.get('/:name', [AppController, 'Home']);
-	})
-		.exception(ErrorHandle)
-		.interceptor(Pipe);
+	
 });

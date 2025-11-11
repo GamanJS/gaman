@@ -21,6 +21,10 @@ cd ../cli
 yalc publish
 yalc push
 
+cd ../site
+yalc publish
+yalc push
+
 cd ../../plugins/static
 yalc publish
 yalc push
@@ -46,14 +50,6 @@ yalc publish
 yalc push
 
 cd ../jwt
-yalc publish
-yalc push
-
-cd ../react
-yalc publish
-yalc push
-
-cd ../tailwindcss
 yalc publish
 yalc push
 

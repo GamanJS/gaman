@@ -7,7 +7,7 @@ export const defaultConfig: GamanConfig = {
 		rootdir: 'src',
 		staticdir: 'public',
 		excludes: ['**/node_modules/**', '**/dist/**', '**/*.test.*'],
-		includes: ['src/**/*.{ts,js,jsx,tsx,vue}'],
+		includes: ['src/**/*.{ts,js,jsx,tsx,vue,css,sass,scss}'],
 	},
 	integrations: [],
 };

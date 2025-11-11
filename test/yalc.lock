@@ -2,27 +2,35 @@
   "version": "v1",
   "packages": {
     "@gaman/static": {
-      "signature": "556239e7f8ae95b4bce513b68854ce23",
+      "signature": "5129a93e583e44a9a53429269bb68735",
       "file": true
     },
     "@gaman/core": {
-      "signature": "9d9dec591d607859e03bf91edfbaa6fd",
+      "signature": "08c68d54ab5d86d4b8e7b861743f5a07",
       "file": true
     },
     "@gaman/common": {
-      "signature": "a76ec121fac27d83dd667f26c0cc97a9",
+      "signature": "6e421d042bf91e1d928099d941e593c3",
       "file": true
     },
     "@gaman/cli": {
-      "signature": "7a4f728c68949ed7046462c7c3a33a5f",
+      "signature": "a590c04dc18b8910bf04a0ee0d509bda",
       "file": true
     },
     "@gaman/react": {
-      "signature": "98c61ef6df49c854023b5510620b313d",
+      "signature": "194d309ebabb5397d2f9a84183fe498c",
       "file": true
     },
     "@gaman/tailwindcss": {
-      "signature": "5caef17459d6785b823419923991e94b",
+      "signature": "3a32d1cb5707fd4f86f13f04764eb07c",
+      "file": true
+    },
+    "@gaman/web": {
+      "signature": "a2fc96d600e33e2c3f75d2be70f6c237",
+      "file": true
+    },
+    "@gaman/site": {
+      "signature": "b0adec933878297b0f150b88e9c02f55",
       "file": true
     }
   }

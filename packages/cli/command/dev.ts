@@ -19,7 +19,7 @@ export async function run_dev(): Promise<void> {
 	let child: ChildProcess | null = null;
 	const restart = () => {
 		if (child) {
-			Logger.log('Restarting application...');
+			// Logger.log('Restarting application...');
 			child.kill();
 		}
 
@@ -36,7 +36,7 @@ export async function run_dev(): Promise<void> {
 	let changeTimeout: NodeJS.Timeout | null = null;
 	chokidar
 		.watch([rootdir, 'gaman.config.mjs', '.env'], {
-			ignored: config?.build?.excludes,
+			ignored: [config.build?.outdir || "dist", ...(config?.build?.excludes ?? [])],
 		})
 		.on('add', async (file) => {
 			if (verbose) Logger.debug(`New file: ${file}`);
@@ -53,6 +53,7 @@ export async function run_dev(): Promise<void> {
 					if (verbose) console.error(err);
 				}
 			}
+			restart()
 		})
 		.on('change', (file) => {
 			if (changeTimeout) clearTimeout(changeTimeout);
@@ -72,6 +73,8 @@ export async function run_dev(): Promise<void> {
 					}
 				}
 			}, 100);
+
+			restart()
 		})
 		.on('unlink', async (file) => {
 			const relPath = path.relative(rootdir, file);

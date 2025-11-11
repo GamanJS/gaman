@@ -105,7 +105,7 @@ function generateETag(stat: { size: number; mtime: Date }) {
  */
 export function staticServe(options: StaticFileOptions = {}) {
 	const defaultDocument = options.defaultDocument ?? 'index.html';
-	const cacheControl = options.cacheControl ?? 'public, max-age=3600';
+	const cacheControl = options.cacheControl;
 
 	// Ambil config dan set path statis saat inisialisasi middleware
 	const middleware = composeMiddleware(async (ctx, next) => {
@@ -200,7 +200,7 @@ export function staticServe(options: StaticFileOptions = {}) {
 				...(encoding ? { 'Content-Encoding': encoding } : {}),
 				Vary: 'Accept-Encoding',
 				ETag: etag,
-				'Cache-Control': cacheControl,
+				'Cache-Control': cacheControl || '',
 			},
 		});
 	});

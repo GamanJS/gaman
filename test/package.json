@@ -24,8 +24,10 @@
     "@gaman/rate-limit": "file:.yalc/@gaman/rate-limit",
     "@gaman/react": "file:.yalc/@gaman/react",
     "@gaman/session": "file:.yalc/@gaman/session",
+    "@gaman/site": "file:.yalc/@gaman/site",
     "@gaman/static": "file:.yalc/@gaman/static",
     "@gaman/tailwindcss": "file:.yalc/@gaman/tailwindcss",
+    "@gaman/web": "file:.yalc/@gaman/web",
     "@gaman/websocket": "file:.yalc/@gaman/websocket",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"

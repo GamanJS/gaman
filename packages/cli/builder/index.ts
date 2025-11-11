@@ -73,11 +73,6 @@ export const buildAll = async (
 	} else {
 		createProductionFile(outdir);
 		if (verbose) Logger.debug('Production file created.');
-
-		// ? Copy folder public → dist/client
-		await copyPublicToClient(config);
-		// ? compress file .js .html yang di dalam dist/client
-		await compressDistFiles(config);
 	}
 
 	// ? Cari entry file
@@ -91,7 +86,7 @@ export const buildAll = async (
 		},
 	);
 	if (verbose) Logger.debug(`Found ${entryPoints.length} entry files`);
-	
+
 	// ? Build semua file secara paralel
 	await Promise.all(
 		entryPoints.map(async (file) => {
@@ -110,6 +105,13 @@ export const buildAll = async (
 			}
 		}),
 	);
+
+	if (mode == 'production') {
+		// ? Copy folder public → dist/client
+		await copyPublicToClient(config);
+		// ? compress file .js .html yang di dalam dist/client
+		await compressDistFiles(config);
+	}
 };
 
 /**
@@ -122,7 +124,7 @@ export const buildFile = async (
 	mode: 'development' | 'production',
 ) => {
 	const ext = path.extname(file);
-	if (!['.ts', '.js'].includes(ext)) {
+	if (!['.ts', '.js'].includes(ext) || file.includes('src/ui')) {
 		return;
 	}
 	try {
@@ -144,6 +146,7 @@ export const buildFile = async (
 			legalComments: 'none',
 			packages: 'external',
 			alias: config?.build?.alias,
+
 			define: {
 				'process.env.NODE_ENV': `"${mode}"`,
 			},

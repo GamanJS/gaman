@@ -7,3 +7,4 @@ declare namespace Gaman {
     ANU: string
   }
 }
+

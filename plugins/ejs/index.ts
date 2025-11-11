@@ -53,7 +53,7 @@ export function ejs(ops: GamanEJSOptions = {}) {
 
 		const filePath = join(
 			process.cwd(),
-			viewPath || 'src/views',
+			viewPath || 'src/ui/views',
 			`${renderData.getName()}.ejs`,
 		);
 		const rendered = await _ejs.renderFile(

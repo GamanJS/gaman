@@ -93,7 +93,7 @@ const defaultOps: GamanNunjucksOptions = {
 };
 
 export function nunjucks(ops: GamanNunjucksOptions = {}) {
-	const { viewPath = 'src/views', ...njkOps } = { ...defaultOps, ...ops };
+	const { viewPath = 'src/ui/views', ...njkOps } = { ...defaultOps, ...ops };
 
 	let env: Environment;
 

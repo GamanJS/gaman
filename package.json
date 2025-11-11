@@ -24,9 +24,7 @@
 		"plugins/websocket",
 		"plugins/session",
 		"plugins/edge",
-		"plugins/jwt",
-		"plugins/react",
-		"plugins/tailwindcss"
+		"plugins/jwt"
 	],
 	"author": "angga7togk",
 	"license": "MIT",
@@ -56,9 +54,10 @@
 		"postcss": "^8.5.6",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
+		"sass": "^1.94.0",
 		"socket.io": "^4.8.1",
 		"source-map-support": "^0.5.21",
-		"tailwindcss": "^4.1.16",
+		"tailwindcss": "^4.1.17",
 		"ws": "^8.18.2"
 	},
 	"devDependencies": {
