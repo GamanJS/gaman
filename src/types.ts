@@ -448,3 +448,23 @@ export type RouterBuilder = {
 		router: Router,
 	) => RouterBuilderWithoutHttpMethods;
 };
+
+
+export interface SecurityOptions {
+    contentSecurityPolicy?: string,
+    xFrameOptions?: 'DENY' | 'SAMEORIGIN',
+    hsts?: {
+		maxAge: number,
+		includeSubDomains?: boolean,
+		preload?: boolean
+    },
+    noSniff?: boolean,
+    referrerPolicy?: 'no-referrer' | 'no-referrer-when-downgrade' | 'origin' | 'origin-when-cross-origin' | 'same-origin' | 'strict-origin' | 'strict-origin-when-cross-origin' | 'unsafe-url',
+    xssFilter?: boolean,
+    crossOriginOpenerPolicy?: 'same-origin' | 'same-origin-allow-popups' | 'unsafe-none',
+    crossOriginEmbedderPolicy?: 'require-corp' | 'credentialless',
+    crossOriginResourcePolicy?: 'same-origin' | 'same-site' | 'cross-origin',
+    cacheControl?: string,
+    xPermittedCrossDomainPolicies?: 'none' | 'master-only' | 'by-content-type' | 'all',
+    xDownloadOptions?: 'noopen',
+}

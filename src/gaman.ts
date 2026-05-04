@@ -19,6 +19,7 @@ import type {
 	Routes,
 	NextFunction,
 	ResponseData,
+	SecurityOptions,
 } from './types';
 import type {
 	ExceptionHandler,
@@ -31,6 +32,7 @@ export class Gaman {
 	private michi = new Michi<RouteMetadata>();
 	private globalMiddlewares: MiddlewareHandler[] = [];
 	private globalExceptionHandler: ExceptionHandler | null = null;
+	private securityOptions: SecurityOptions = {};
 
 	/**
 	 * @ID
@@ -91,6 +93,54 @@ export class Gaman {
 		}
 
 		finalResponse.headers.set('X-Powered-By', 'GamanJS');
+
+		const { securityOptions } = this;
+
+		/**
+		 * Default security headers will be applied to every responses.
+		 * This can be overridden by user-defined headers.
+		 */
+
+		if (securityOptions.contentSecurityPolicy) {
+			finalResponse.headers.set('Content-Security-Policy', securityOptions.contentSecurityPolicy);
+		}
+		if (securityOptions.xFrameOptions) {
+			finalResponse.headers.set('X-Frame-Options', securityOptions.xFrameOptions);
+		}
+		if (securityOptions.hsts) {
+			const directives = [`max-age=${securityOptions.hsts.maxAge}`];
+			if (securityOptions.hsts.includeSubDomains) directives.push('includeSubDomains');
+			if (securityOptions.hsts.preload) directives.push('preload');
+			finalResponse.headers.set('Strict-Transport-Security', directives.join('; '));
+		}
+		if (securityOptions.noSniff) {
+			finalResponse.headers.set('X-Content-Type-Options', 'nosniff');
+		}
+		if (securityOptions.referrerPolicy) {
+			finalResponse.headers.set('Referrer-Policy', securityOptions.referrerPolicy);
+		}
+		if (securityOptions.xssFilter) {
+			finalResponse.headers.set('X-XSS-Protection', '1; mode=block');
+		}
+		if (securityOptions.crossOriginOpenerPolicy) {
+			finalResponse.headers.set('Cross-Origin-Opener-Policy', securityOptions.crossOriginOpenerPolicy);
+		}
+		if (securityOptions.crossOriginEmbedderPolicy) {
+			finalResponse.headers.set('Cross-Origin-Embedder-Policy', securityOptions.crossOriginEmbedderPolicy);
+		}
+		if (securityOptions.crossOriginResourcePolicy) {
+			finalResponse.headers.set('Cross-Origin-Resource-Policy', securityOptions.crossOriginResourcePolicy);
+		}
+		if (securityOptions.cacheControl) {
+			finalResponse.headers.set('Cache-Control', securityOptions.cacheControl);
+		}
+		if (securityOptions.xPermittedCrossDomainPolicies) {
+			finalResponse.headers.set('X-Permitted-Cross-Domain-Policies', securityOptions.xPermittedCrossDomainPolicies);
+		}
+		if (securityOptions.xDownloadOptions) {
+			finalResponse.headers.set('X-Download-Options', securityOptions.xDownloadOptions);
+		}
+
 		if (ctx && typeof ctx.headers.getSetHeaders === 'function') {
 			for (const [key, value] of ctx.headers.getSetHeaders()) {
 				if (value) {
@@ -264,23 +314,29 @@ export class Gaman {
 		}
 	}
 
-	public mountServer(config?: GamanServerConfig) {
-		Logger.log(
-			`${TextFormat.BOLD}${TextFormat.LIGHT_PURPLE}GamanJS Framework`,
-		);
+	public setSecurity(options: SecurityOptions) {
+		this.securityOptions = options;
+	}
+
+	public mountServer(config?: GamanServerConfig, security?: SecurityOptions) {
+		if (security) {
+			this.setSecurity(security);
+		}
+
+		Logger.log(`${TextFormat.BOLD}${TextFormat.LIGHT_PURPLE}GamanJS Framework`);
 		Logger.info(
 			`${TextFormat.ITALIC}A Lean Framework for Enterprise Scalability.`,
 		);
 		Logger.log(`${TextFormat.GRAY} —————————————————————————————————————— `);
 
 		if (typeof config?.http !== 'undefined') {
-			const h =
+			const httpConfig: HttpServerConfig =
 				typeof config.http === 'number'
 					? { port: config.http }
 					: (config.http as HttpServerConfig);
 
-			const host = h.host || 'localhost';
-			const port = h.port || 3431;
+			const host = httpConfig.host || 'localhost';
+			const port = httpConfig.port || 3431;
 
 			Logger.info(
 				`${TextFormat.LIGHT_BLUE}HTTP${TextFormat.RESET}  : Listening at ${TextFormat.LIGHT_GREEN}http://${host}:${port}`,

@@ -24,11 +24,15 @@
     },
     "packages/cors": {
       "name": "@gaman/cors",
-      "version": "1.0.9",
+      "version": "1.1.0",
+    },
+    "packages/kame": {
+      "name": "@gaman/kame",
+      "version": "0.1.0",
     },
     "packages/static": {
       "name": "@gaman/static",
-      "version": "1.0.6",
+      "version": "1.0.7",
     },
   },
   "packages": {
@@ -91,6 +95,8 @@
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.27.4", "", { "os": "win32", "cpu": "x64" }, "sha512-+knoa0BDoeXgkNvvV1vvbZX4+hizelrkwmGJBdT17t8FNPwG2lKemmuMZlmaNQ3ws3DKKCxpb4zRZEIp3UxFCg=="],
 
     "@gaman/cors": ["@gaman/cors@workspace:packages/cors"],
+
+    "@gaman/kame": ["@gaman/kame@workspace:packages/kame"],
 
     "@gaman/michi": ["@gaman/michi@0.1.3", "", {}, "sha512-vNkpTEfUa9F8KkpU1OwuY8mKEYmFcpILirsAD7S31IiEThx9inADI/ASO612miX1K6oGWOTqbNXAO09j5I1Hug=="],
 
