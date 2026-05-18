@@ -10,7 +10,7 @@
 
 <p align="center">
   <p align="center">
-  <strong>A Lean Framework for Enterprise Scalability.</strong> 
+  <strong>A lightweight, composable framework on Bun.</strong> 
   </br>
   <i>"Complexity doesn't have to be heavy.</i></br>
   <i>Built on <strong>Bun</strong>, designed for <strong>Logic</strong>, optimized for <strong>Scale</strong>."</i>
@@ -53,7 +53,7 @@
 GamanJS currently only supports Bun runtime.
 
 ```bash
-bun create gaman@latest
+bun create gaman@latest <name>
 ```
 
 ## GamanJS Project Structure 🏗️
@@ -65,7 +65,11 @@ In a production scale or **Enterprise** project, the GamanJS folder structure wi
 ```
 src/
 ├── index.ts                 # The Orchestrator (Entry Point)
-├── database/               # Database Configuration
+├── console/                 # Helper tool for adding custom commands
+├── database/                # Database Configuration
+│   ├── models/              # Global model and schema databases
+│   ├── migrations/          # Database migration files
+│   └── seeders/             # Database seeders files
 └── modules/                 # Powerhouse of your Application
     ├── app/                 # Infrastructure Module (Global/Shared)
     │   ├── controllers/     # Handlers for Global Requests (Health, Index)
@@ -79,14 +83,14 @@ src/
         │   └── UserController.ts
         ├── services/        # Business Logic (Auth Logic, User CRUD)
         │   └── UserService.ts
-        ├── models/          # Data Access Layer (Powered by @gaman/orm)
+        ├── models/          # Data Access Layer (Powered by @gaman/db)
         │   └── UserModel.ts
         └── UserRouter.ts    # Scoped Routes & Feature Middleware
 ```
 
 ## Documentation
 
-visit our [https://gamanjs.github.io/](https://gamanjs.github.io/)
+visit our [https://gaman.js.org/](https://gaman.js.org/)
 
 ## Star History
 
@@ -101,6 +105,7 @@ visit our [https://gamanjs.github.io/](https://gamanjs.github.io/)
 ## All contributors ✨
 
 <a href="https://github.com/GamanJS/gaman/graphs/contributors"><img width="720" src="https://contrib.rocks/image?repo=GamanJS/gaman" alt="A table of avatars from the project's contributors" /></a>
+<a href="https://github.com/GamanJS/gamanjs.github.io/graphs/contributors"><img width="720" src="https://contrib.rocks/image?repo=GamanJS/gamanjs.github.io" alt="A table of avatars from the project's contributors" /></a>
 
 ## Contributing
 
