@@ -12,6 +12,12 @@ import './commands/gen-controller';
 import './commands/gen-service';
 import './commands/gen-middleware';
 import './commands/gen-exception';
+import './commands/gen-migration';
+import './commands/gen-seeder';
+
+import './commands/database/migrate';
+import './commands/database/seed';
+
 import './commands/buntest-cmd';
 import './commands/fetch';
 
