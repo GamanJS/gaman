@@ -1,5 +1,4 @@
 import { registerCommand } from '../registry';
-import { composeSeeder } from '@gaman/db';
 import { Logger } from 'gaman/utils';
 import { join } from 'path';
 registerCommand({
@@ -14,7 +13,7 @@ registerCommand({
 			return;
 		}
 		Logger.info(`seeder ${filename} is already running...`);
-		let seeder: ReturnType<typeof composeSeeder> = await import(
+		let seeder = await import(
 			join(process.cwd(), cfg.srcDir || 'src', 'database', 'seeders', filename)
 		);
 		if ((seeder as any).default) seeder = (seeder as any).default;

@@ -1,5 +1,4 @@
 import { registerCommand } from '../registry';
-import { composeMigration } from '@gaman/db';
 import { Logger } from 'gaman/utils';
 import { join } from 'path';
 import { readdirSync } from 'fs';
