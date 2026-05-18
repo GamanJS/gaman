@@ -71,16 +71,22 @@
 		"framework"
 	],
 	"scripts": {
+		"test-serv": "KAME_CLI=true bun src-test/index.ts",
 		"release": "bun build.ts && bun test && npm publish --access public",
 		"kame": "bun packages/kame/src/index.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
+		"@types/pg": "^8.20.0",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react": "^6.0.1",
 		"edge.js": "^6.5.0",
 		"esbuild-fix-imports-plugin": "^1.0.23",
+		"kysely": "^0.28.16",
+		"kysely-bun-sqlite": "^0.4.0",
+		"mysql2": "^3.22.2",
+		"pg": "^8.20.0",
 		"prettier": "^3.8.1",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",

@@ -1,0 +1,56 @@
+{
+	"name": "@gaman/db",
+	"version": "0.1.0",
+	"author": "angga7togk",
+	"license": "MIT",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.js",
+			"import": "./dist/index.mjs"
+		},
+		"./column": {
+			"types": "./dist/column/index.d.ts",
+			"require": "./dist/column/index.js",
+			"import": "./dist/column/index.mjs"
+		},
+		"./migration": {
+			"types": "./dist/migration/index.d.ts",
+			"require": "./dist/migration/index.js",
+			"import": "./dist/migration/index.mjs"
+		}
+	},
+	"keywords": [
+		"gamanjs",
+		"gaman",
+		"database",
+		"gaman db",
+		"orm",
+		"gaman orm",
+		"bun"
+	],
+	"repository": {
+		"url": "git+https://github.com/GamanJS/gaman.git"
+	},
+	"bugs": {
+		"url": "https://github.com/GamanJS/gaman/issues"
+	},
+	"scripts": {
+		"build": "tsc -b -v",
+		"clean": "tsc -b --clean"
+	},
+	"homepage": "https://github.com/GamanJS/gaman",
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org"
+	},
+	"peerDependencies": {
+		"kysely": ">=0.28.16",
+		"kysely-bun-sqlite": ">=0.4.0"
+	},
+	"devDependencies": {
+		"kysely": "^0.28.16",
+		"kysely-bun-sqlite": "^0.4.0"
+	}
+}

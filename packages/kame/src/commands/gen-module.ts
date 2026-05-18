@@ -7,8 +7,13 @@ import {
 	serviceTemplate,
 } from '../templates/module';
 import { capitalize } from '../utils';
+import type { KameConfig } from '../repl';
 
-const handler = async (args: string[]): Promise<void> => {
+const handler = async (
+	args: string[],
+	flags: any,
+	cfg: KameConfig,
+): Promise<void> => {
 	const modulePath = args[0];
 	if (!modulePath) {
 		Logger.error('Usage: gen:module <name>');
@@ -19,7 +24,7 @@ const handler = async (args: string[]): Promise<void> => {
 	const name = basename(modulePath);
 	const nameCapitalized = capitalize(name);
 	const cwd = process.cwd();
-	const moduleDir = join(cwd, 'src', 'modules', modulePath);
+	const moduleDir = join(cwd, cfg.srcDir || 'src', 'modules', modulePath);
 
 	const files: { filePath: string; content: string }[] = [
 		{

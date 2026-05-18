@@ -1,8 +1,11 @@
 export { startKame } from './repl';
 
 import { Gaman } from 'gaman';
-import { startKame } from './repl';
+import { startKame, type KameConfig } from './repl';
 
-export function startKameWithGaman(gaman: Gaman) {
-	return startKame();
+export function startKameWithGaman(
+	gaman: Gaman,
+	cfg: KameConfig = { srcDir: 'src' },
+) {
+	return startKame(cfg);
 }

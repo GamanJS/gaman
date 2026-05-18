@@ -12,10 +12,23 @@ import './commands/gen-controller';
 import './commands/gen-service';
 import './commands/gen-middleware';
 import './commands/gen-exception';
+import './commands/gen-migration';
+import './commands/gen-seeder';
+
+import './commands/database/migrate';
+import './commands/database/seed';
+
 import './commands/buntest-cmd';
 import './commands/fetch';
 
-export function startKame() {
+export interface KameConfig {
+	/**
+	 * @default 'src/'
+	 */
+	srcDir?: string;
+}
+
+export function startKame(cfg: KameConfig = { srcDir: 'src' }) {
 	if (!process.env.KAME_CLI) return;
 	Logger.info(
 		`${TextFormat.BG_CYAN} ${TextFormat.BOLD}Kame ${TextFormat.RESET} System active. Type "help" for commands.`,
@@ -55,7 +68,7 @@ export function startKame() {
 				`Unknown command: "${commandName}". Run "help" to see available commands.`,
 			);
 		} else {
-			await cmd.getHandler()(args, flags);
+			await cmd.getHandler()(args, flags, cfg);
 		}
 
 		rl.prompt();

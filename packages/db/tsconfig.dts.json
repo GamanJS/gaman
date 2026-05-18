@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "preserveSymlinks": true,
+    "target": "ES2021",
+    "lib": [
+      "ESNext"
+    ],
+    "module": "ES2022",
+    "rootDir": "./src",
+    "outDir": "./dist",
+		
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+		"baseUrl": ".",
+    "paths": {
+      "gaman": [
+        "../../dist/index.d.ts"
+      ],
+      "gaman/types": [
+        "../../dist/types.d.ts"
+      ],
+      "gaman/responder": [
+        "../../dist/responder.d.ts"
+      ],
+      "gaman/compose": [
+        "../../dist/compose/index.d.ts"
+      ],
+      "gaman/utils": [
+        "../../dist/utils/index.d.ts"
+      ],
+      "gaman/formdata": [
+        "../../dist/context/formdata/index.d.ts"
+      ],
+      "gaman/header": [
+        "../../dist/context/header/index.d.ts"
+      ],
+      "gaman/enums": [
+        "../../dist/enums/index.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "src/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "test",
+    "example",
+    "dist",
+    "build.ts",
+    "old",
+    "src-test",
+    "**/*.test.*",
+    "benchmark",
+    "**/*.benchmark.*"
+  ]
+}

@@ -1,64 +1,40 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "ESNext"
-    ],
-    "target": "ESNext",
-    "module": "Preserve",
-    "moduleDetection": "force",
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "types": [
-      "bun-types"
-    ],
-    "outDir": "./dist",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "gaman": [
-        "./src/index.ts"
-      ],
-      "gaman/types": [
-        "./src/types.ts"
-      ],
-      "gaman/responder": [
-        "./src/responder.ts"
-      ],
-      "gaman/compose": [
-        "./src/compose/index.ts"
-      ],
-      "gaman/utils": [
-        "./src/utils/index.ts"
-      ],
-      "gaman/formdata": [
-        "./src/context/formdata/index.ts"
-      ],
-      "gaman/header": [
-        "./src/context/header/index.ts"
-      ],
-      "gaman/enums": [
-        "./src/enums/index.ts"
-      ]
-    }
-  },
-  "include": [
-    "src/**/*"
-, "test/console.ts"  ],
-  "exclude": [
-    "**/*.test.ts",
-    "tests",
-    "benchmark"
-  ]
+	"compilerOptions": {
+		"lib": ["ESNext"],
+		"target": "ESNext",
+		"module": "Preserve",
+		"moduleDetection": "force",
+		"jsx": "react-jsx",
+		"allowJs": true,
+		"types": ["bun-types"],
+		"outDir": "./dist",
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"verbatimModuleSyntax": true,
+		"noEmit": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"noPropertyAccessFromIndexSignature": false,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+		"paths": {
+			"gaman": ["./src/index.ts"],
+			"gaman/types": ["./src/types.ts"],
+			"gaman/responder": ["./src/responder.ts"],
+			"gaman/compose": ["./src/compose/index.ts"],
+			"gaman/utils": ["./src/utils/index.ts"],
+			"gaman/formdata": ["./src/context/formdata/index.ts"],
+			"gaman/header": ["./src/context/header/index.ts"],
+			"gaman/enums": ["./src/enums/index.ts"],
+			"@gaman/db": ["./packages/db/src/index.ts"],
+			"@gaman/db/migration": ["./packages/db/src/migration/index.ts"]
+		}
+	},
+	"include": ["src/**/*", "test/console.ts"],
+	"exclude": ["**/*.test.ts", "tests", "benchmark"]
 }

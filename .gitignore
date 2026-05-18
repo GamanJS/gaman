@@ -8,7 +8,7 @@ src/modules
 out
 dist
 *.tgz
-
+database.sqlite
 # code coverage
 coverage
 *.lcov

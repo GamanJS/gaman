@@ -1,6 +1,9 @@
+import type { KameConfig } from '../repl';
+
 export type CommandHandler = (
 	args: string[],
 	flags: Record<string, string | boolean>,
+	appConfig: KameConfig,
 ) => Promise<void> | void;
 
 export class Command {

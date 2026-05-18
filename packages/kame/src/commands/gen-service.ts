@@ -3,6 +3,7 @@ import { join, relative, basename } from 'node:path';
 import { registerCommand } from './registry';
 import { standaloneServiceTemplate } from '../templates/service';
 import { capitalize, toCamelCase } from '../utils';
+import type { KameConfig } from '../repl';
 
 /**
  * Inject the new service into the module Router file.
@@ -62,7 +63,11 @@ const patchRouter = async (
 	await Bun.write(routerPath, source);
 };
 
-const handler = async (args: string[]): Promise<void> => {
+const handler = async (
+	args: string[],
+	flags: any,
+	cfg: KameConfig,
+): Promise<void> => {
 	const [name, module = 'app'] = args;
 	if (!name || !module) {
 		Logger.error("Usage: gen:service <name> <module: 'app'>");
@@ -74,7 +79,13 @@ const handler = async (args: string[]): Promise<void> => {
 	const moduleSegment = basename(module);
 	const moduleCapitalized = capitalize(moduleSegment);
 	const cwd = process.cwd();
-	const serviceDir = join(cwd, 'src', 'modules', module, 'services');
+	const serviceDir = join(
+		cwd,
+		cfg.srcDir || 'src',
+		'modules',
+		module,
+		'services',
+	);
 	const filePath = join(serviceDir, `${nameCapitalized}Service.ts`);
 
 	await Bun.$`mkdir -p ${serviceDir}`.quiet();
@@ -84,7 +95,7 @@ const handler = async (args: string[]): Promise<void> => {
 	// Auto-register in module router (named after last segment, e.g. UserRouter.ts)
 	const routerPath = join(
 		cwd,
-		'src',
+		cfg.srcDir || 'src',
 		'modules',
 		module,
 		`${moduleCapitalized}Router.ts`,
