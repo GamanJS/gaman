@@ -30,10 +30,8 @@ export class Model<T extends ReturnType<typeof composeSchema>> {
 				throw new Error(`Column "${colName}" has no type defined`);
 			}
 
-			tableBuilder = tableBuilder.addColumn(
-				colName,
-				colDefintion.type,
-				(cb) => {
+			tableBuilder = tableBuilder
+				.addColumn(colName, colDefintion.type, (cb) => {
 					let res = cb;
 
 					if (colDefintion.isPrimary) res = res.primaryKey();
@@ -42,6 +40,7 @@ export class Model<T extends ReturnType<typeof composeSchema>> {
 					if (colDefintion.isUnique) res = res.unique();
 					if (!colDefintion.isNullable) res = res.notNull();
 					if (
+						colDefintion.defaultValue !== undefined &&
 						colDefintion.defaultValue !== null &&
 						typeof colDefintion.defaultValue !== 'function'
 					) {
@@ -49,8 +48,8 @@ export class Model<T extends ReturnType<typeof composeSchema>> {
 					}
 
 					return res;
-				},
-			);
+				})
+				.ifNotExists();
 
 			//? simpan index untuk dibuat nanti
 			if (colDefintion.isIndex) {
@@ -123,10 +122,12 @@ export class Model<T extends ReturnType<typeof composeSchema>> {
 		op: ComparisonOperatorExpression,
 		value: any,
 	) {
-		const qb = this.query().where(column as any, op, value);
-		return new Where<T['infer']>(qb as any);
+		return new Where<T['infer']>(this.kysely, this.schema.name).where(
+			column,
+			op,
+			value,
+		);
 	}
-
 	/**
 	 * @ID Membuat data baru ke tabel.
 	 * @EN Inserts new record into table.
@@ -135,13 +136,11 @@ export class Model<T extends ReturnType<typeof composeSchema>> {
 		const finalData: any = { ...data };
 
 		for (const [key, col] of Object.entries(this.schema.fields)) {
-			const config = (col as any).config;
-
-			if (finalData[key] === undefined && config.defaultValue !== null) {
-				if (typeof config.defaultValue === 'function') {
-					finalData[key] = config.defaultValue();
+			if (finalData[key] === undefined && col.defaultValue !== null) {
+				if (typeof col.defaultValue === 'function') {
+					finalData[key] = col.defaultValue();
 				} else {
-					finalData[key] = config.defaultValue;
+					finalData[key] = col.defaultValue;
 				}
 			}
 		}
@@ -150,6 +149,33 @@ export class Model<T extends ReturnType<typeof composeSchema>> {
 			.insertInto(this.schema.name)
 			.values(finalData)
 			.executeTakeFirstOrThrow();
+	}
+
+	/**
+	 * @ID Membuat banyak data sekaligus ke tabel.
+	 * @EN Inserts multiple records into the table.
+	 */
+	async createMany(data: Array<Partial<T['infer']>>) {
+		const finalData = data.map((item) => {
+			const row: any = { ...item };
+
+			for (const [key, col] of Object.entries(this.schema.fields)) {
+				if (row[key] === undefined && col.defaultValue !== null) {
+					if (typeof col.defaultValue === 'function') {
+						row[key] = col.defaultValue();
+					} else {
+						row[key] = col.defaultValue;
+					}
+				}
+			}
+
+			return row;
+		});
+
+		return await this.kysely
+			.insertInto(this.schema.name)
+			.values(finalData)
+			.execute();
 	}
 
 	/**
