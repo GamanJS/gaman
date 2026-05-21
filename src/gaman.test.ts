@@ -6,9 +6,9 @@ describe('Gaman App Instance', () => {
 	it('should successfully mount a global middleware', () => {
 		const app = new Gaman();
 		const middleware = composeMiddleware((ctx, next) => next());
-		
+
 		app.mount(middleware);
-		
+
 		// @ts-ignore: testing internal state
 		expect(app.globalMiddlewares.length).toBe(1);
 		// @ts-ignore
@@ -18,9 +18,9 @@ describe('Gaman App Instance', () => {
 	it('should successfully mount a global exception handler', () => {
 		const app = new Gaman();
 		const exceptionData = composeException((err, ctx) => new Response('Error'));
-		
+
 		app.mount(exceptionData);
-		
+
 		// @ts-ignore: testing internal state
 		expect(app.globalExceptionHandler).toBe(exceptionData);
 	});
@@ -57,7 +57,7 @@ describe('Gaman App Instance', () => {
 describe('Gaman default security headers', () => {
 	it('should store security options', () => {
 		const app = new Gaman();
-		
+
 		app.setSecurity({
 			xFrameOptions: 'DENY',
 			noSniff: true,
@@ -119,7 +119,10 @@ describe('Gaman default security headers', () => {
 
 	it('should apply security options from mountServer parameter', () => {
 		const app = new Gaman();
-		app.mountServer({ http: 3431 }, { xFrameOptions: 'DENY', noSniff: true });
+		app.mountServer(
+			{ http: 'noServer' },
+			{ xFrameOptions: 'DENY', noSniff: true },
+		);
 
 		// @ts-ignore
 		expect(app.securityOptions.xFrameOptions).toBe('DENY');
@@ -129,7 +132,7 @@ describe('Gaman default security headers', () => {
 
 	it('should handle mountServer without security parameter', () => {
 		const app = new Gaman();
-		app.mountServer({ http: 3431 });
+		app.mountServer({ http: 'noServer' });
 
 		// @ts-ignore
 		expect(app.securityOptions).toEqual({});

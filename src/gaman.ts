@@ -102,43 +102,71 @@ export class Gaman {
 		 */
 
 		if (securityOptions.contentSecurityPolicy) {
-			finalResponse.headers.set('Content-Security-Policy', securityOptions.contentSecurityPolicy);
+			finalResponse.headers.set(
+				'Content-Security-Policy',
+				securityOptions.contentSecurityPolicy,
+			);
 		}
 		if (securityOptions.xFrameOptions) {
-			finalResponse.headers.set('X-Frame-Options', securityOptions.xFrameOptions);
+			finalResponse.headers.set(
+				'X-Frame-Options',
+				securityOptions.xFrameOptions,
+			);
 		}
 		if (securityOptions.hsts) {
 			const directives = [`max-age=${securityOptions.hsts.maxAge}`];
-			if (securityOptions.hsts.includeSubDomains) directives.push('includeSubDomains');
+			if (securityOptions.hsts.includeSubDomains)
+				directives.push('includeSubDomains');
 			if (securityOptions.hsts.preload) directives.push('preload');
-			finalResponse.headers.set('Strict-Transport-Security', directives.join('; '));
+			finalResponse.headers.set(
+				'Strict-Transport-Security',
+				directives.join('; '),
+			);
 		}
 		if (securityOptions.noSniff) {
 			finalResponse.headers.set('X-Content-Type-Options', 'nosniff');
 		}
 		if (securityOptions.referrerPolicy) {
-			finalResponse.headers.set('Referrer-Policy', securityOptions.referrerPolicy);
+			finalResponse.headers.set(
+				'Referrer-Policy',
+				securityOptions.referrerPolicy,
+			);
 		}
 		if (securityOptions.xssFilter) {
 			finalResponse.headers.set('X-XSS-Protection', '1; mode=block');
 		}
 		if (securityOptions.crossOriginOpenerPolicy) {
-			finalResponse.headers.set('Cross-Origin-Opener-Policy', securityOptions.crossOriginOpenerPolicy);
+			finalResponse.headers.set(
+				'Cross-Origin-Opener-Policy',
+				securityOptions.crossOriginOpenerPolicy,
+			);
 		}
 		if (securityOptions.crossOriginEmbedderPolicy) {
-			finalResponse.headers.set('Cross-Origin-Embedder-Policy', securityOptions.crossOriginEmbedderPolicy);
+			finalResponse.headers.set(
+				'Cross-Origin-Embedder-Policy',
+				securityOptions.crossOriginEmbedderPolicy,
+			);
 		}
 		if (securityOptions.crossOriginResourcePolicy) {
-			finalResponse.headers.set('Cross-Origin-Resource-Policy', securityOptions.crossOriginResourcePolicy);
+			finalResponse.headers.set(
+				'Cross-Origin-Resource-Policy',
+				securityOptions.crossOriginResourcePolicy,
+			);
 		}
 		if (securityOptions.cacheControl) {
 			finalResponse.headers.set('Cache-Control', securityOptions.cacheControl);
 		}
 		if (securityOptions.xPermittedCrossDomainPolicies) {
-			finalResponse.headers.set('X-Permitted-Cross-Domain-Policies', securityOptions.xPermittedCrossDomainPolicies);
+			finalResponse.headers.set(
+				'X-Permitted-Cross-Domain-Policies',
+				securityOptions.xPermittedCrossDomainPolicies,
+			);
 		}
 		if (securityOptions.xDownloadOptions) {
-			finalResponse.headers.set('X-Download-Options', securityOptions.xDownloadOptions);
+			finalResponse.headers.set(
+				'X-Download-Options',
+				securityOptions.xDownloadOptions,
+			);
 		}
 
 		if (ctx && typeof ctx.headers.getSetHeaders === 'function') {
@@ -325,7 +353,7 @@ export class Gaman {
 
 		Logger.log(`${TextFormat.BOLD}${TextFormat.LIGHT_PURPLE}GamanJS Framework`);
 		Logger.info(
-			`${TextFormat.ITALIC}A Lean Framework for Enterprise Scalability.`,
+			`${TextFormat.ITALIC}A lightweight, composable framework on Bun.`,
 		);
 		Logger.log(`${TextFormat.GRAY} —————————————————————————————————————— `);
 
@@ -354,7 +382,9 @@ export class Gaman {
 				return defaultFetch(input, init);
 			};
 
-			this.listenHttp(config.http);
+			if (config.http !== 'noServer') {
+				this.listenHttp(config.http);
+			}
 		}
 		// this.listenIPC();
 
